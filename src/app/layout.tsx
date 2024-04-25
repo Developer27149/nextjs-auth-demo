@@ -1,4 +1,4 @@
-import { getUserInfoAction } from "@/actions";
+import { getUserInfoAction } from "@/app/actions";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -20,7 +20,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="w-[960px] max-w-screen mx-auto p-4">
+        <div className="w-[960px] max-w-[100vw] mx-auto p-4">
           <ul className="flex gap-4">
             <li>
               <a href="/" className="text-3xl font-semibold">
