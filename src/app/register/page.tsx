@@ -1,6 +1,14 @@
+"use client";
+import { useFormState, useFormStatus } from "react-dom";
 import { registerAction } from "../actions";
 
 export default function RegisterPage() {
+  const [state, formAction] = useFormState(registerAction, {
+    success: true,
+    message: "",
+  });
+  const { pending } = useFormStatus();
+
   return (
     <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg text-center">
@@ -12,7 +20,7 @@ export default function RegisterPage() {
       </div>
 
       <form
-        action={registerAction}
+        action={formAction}
         className="mx-auto mb-0 mt-8 max-w-md space-y-4"
       >
         <div>
@@ -23,6 +31,7 @@ export default function RegisterPage() {
           <div className="relative">
             <input
               type="email"
+              name="email"
               className="w-full rounded-lg border-gray-100 border p-4 pe-12 text-sm shadow-sm"
               placeholder="Enter email"
             />
@@ -54,6 +63,7 @@ export default function RegisterPage() {
           <div className="relative">
             <input
               type="password"
+              name="password"
               className="w-full rounded-lg border-gray-100 border p-4 pe-12 text-sm shadow-sm"
               placeholder="Enter password"
             />
@@ -89,13 +99,18 @@ export default function RegisterPage() {
             <a className="underline" href="/login">
               Sign in
             </a>
+            {state?.success === false && (
+              <span className="text-red-500 pt-4 text-sm pl-4">
+                {state.message}
+              </span>
+            )}
           </p>
 
           <button
             type="submit"
             className="inline-block rounded-lg bg-green-500 px-5 py-3 text-sm font-medium text-white"
           >
-            Register
+            {pending ? "Loading..." : "Register"}
           </button>
         </div>
       </form>
